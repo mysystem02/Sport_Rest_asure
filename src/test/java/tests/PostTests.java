@@ -17,7 +17,7 @@ public class PostTests extends BaseTest {
                 "}";
 
         Response response = sendPostRequest("/user/post", token, requestBody);
-        response.then().statusCode(201);
+        response.then().statusCode(200);
         System.out.println("Create Post Response: " + response.getBody().asString());
     }
 

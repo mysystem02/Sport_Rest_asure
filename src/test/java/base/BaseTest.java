@@ -16,9 +16,9 @@ public class BaseTest {
     // Method to get authentication token using credentials from properties file
     public static String getAuthToken() {
         String requestBody = "{\n" +
-                "    \"email\": \"" + ConfigReader.getProperty("remail") + "\",\n" +
-                "    \"password\": \"" + ConfigReader.getProperty("rpassword") + "\",\n" +
-                "    \"role\": \"" + ConfigReader.getProperty("role1") + "\"\n" +
+                "    \"email\": \"" + ConfigReader.getProperty("email") + "\",\n" +
+                "    \"password\": \"" + ConfigReader.getProperty("password") + "\",\n" +
+                "    \"role\": \"" + ConfigReader.getProperty("role") + "\"\n" +
                 "}";
 
         Response response = given()
