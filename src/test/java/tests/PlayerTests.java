@@ -23,8 +23,8 @@ public class PlayerTests extends BaseTest {
     }
 
     @Test
-    public void testVerifyOTP() {
-        String requestBody = "{ \"otp\":\"380159\" }";
+    public static void testVerifyOTP(String otp) {
+        String requestBody = "{ \"otp\":\""+otp+"\" }";
         Response response = sendPostRequest("/auth/verify", null, requestBody);
         response.then().statusCode(200);
         System.out.println("OTP Verification Response: " + response.getBody().asString());
