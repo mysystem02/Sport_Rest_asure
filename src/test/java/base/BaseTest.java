@@ -3,6 +3,7 @@ package base;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 import org.testng.Assert;
 import utils.ConfigReader;
 
@@ -46,8 +47,6 @@ public class BaseTest {
         return token;
     }
 
-
-
     // Reusable method to send a GET request with authentication
     public static Response sendGetRequest(String endpoint, String token) {
         return given()
@@ -63,13 +62,20 @@ public class BaseTest {
     }
 
     public static Response sendPostRequest(String endpoint, String token, String body) {
-        return given()
-                .header("Authorization", "Bearer " + token)
+        RequestSpecification request = given()
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")  // Set content type
                 .header("User-Agent", "RestAssured")
-                .body(body)
-                .when()
+                .body(body);
+
+        // Only add Authorization header if the token is not null
+        if (token != null && !token.isEmpty()) {
+            request.header("Authorization", "Bearer " + token);
+        } else {
+            System.out.println("⚠️ Warning: Token is null or empty. API may return 401 Unauthorized.");
+        }
+
+        return request.when()
                 .post(BASE_URL + endpoint)
                 .then()
                 .log().all()
