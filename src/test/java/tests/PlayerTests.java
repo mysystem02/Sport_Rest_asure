@@ -3,6 +3,8 @@ package tests;
 import base.BaseTest;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
+import utils.DatabaseUtil;
+
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 
@@ -23,7 +25,10 @@ public class PlayerTests extends BaseTest {
     }
 
     @Test
-    public static void testVerifyOTP(String otp) {
+    public static void testVerifyOTP() {
+        String email = "wasimahamedplyer@yopmail.com";
+        String query = "SELECT * FROM `user` WHERE `email` = ? ORDER BY updated_at DESC LIMIT 1";
+        String otp = DatabaseUtil.fetchDataFromDatabase(query, "otp", email);
         String requestBody = "{ \"otp\":\""+otp+"\" }";
         Response response = sendPostRequest("/auth/verify", null, requestBody);
         response.then().statusCode(200);

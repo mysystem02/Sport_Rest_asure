@@ -36,7 +36,7 @@ public class OTPVerificationTest {
         String otp = getOTPFromDatabase(userEmail);
 
         if (otp != null) {
-            PlayerTests.testVerifyOTP(otp);
+//            PlayerTests.testVerifyOTP(otp);
         } else {
             System.out.println("OTP not found in the database!");
         }
